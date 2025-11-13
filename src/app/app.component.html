@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>Dynamic Form Renderer — Angular 14</h1>
+
+  <div class="schema-picker">
+    <label for="pick">Choose schema</label>
+    <select id="pick" (change)="selected = schemas[$any($event.target).selectedIndex]">
+      <option *ngFor="let s of schemas">{{ s.name }}</option>
+    </select>
+  </div>
+
+  <app-dynamic-form
+  *ngIf="selected?.schema"
+  [schema]="selected.schema"
+  (submitted)="onSubmitted($event)">
+</app-dynamic-form>
+
+  <div *ngIf="lastSubmission" class="output">
+    <h3>Submitted data</h3>
+    <pre>{{ lastSubmission | json }}</pre>
+  </div>
+</div>

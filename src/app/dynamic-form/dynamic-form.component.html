@@ -1,0 +1,33 @@
+<div class="dynamic-form">
+  <h2 *ngIf="schema.title">{{ schema.title }}</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div *ngFor="let f of schema.fields" class="form-row">
+      <label [for]="f.name">{{ f.label }} <span *ngIf="f.required">*</span></label>
+
+      <input *ngIf="f.type === 'text'" [id]="f.name" [formControlName]="f.name" type="text" />
+
+      <textarea *ngIf="f.type === 'textarea'" [id]="f.name" [formControlName]="f.name" rows="4"></textarea>
+
+      <input *ngIf="f.type === 'date'" [id]="f.name" [formControlName]="f.name" type="date" />
+
+      <select *ngIf="f.type === 'dropdown'" [id]="f.name" [formControlName]="f.name">
+        <option value="" disabled selected>Choose...</option>
+        <option *ngFor="let o of f.options" [value]="o">{{ o }}</option>
+      </select>
+
+      <select *ngIf="f.type === 'multiselect'" [id]="f.name" [formControlName]="f.name" multiple>
+        <option *ngFor="let o of f.options" [value]="o">{{ o }}</option>
+      </select>
+
+      <input *ngIf="f.type === 'checkbox'" [id]="f.name" type="checkbox" [formControlName]="f.name" />
+
+      <div class="error" *ngIf="form.get(f.name)?.touched && form.get(f.name)?.invalid">
+        {{ getErrorMessage(f) }}
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+</div>
