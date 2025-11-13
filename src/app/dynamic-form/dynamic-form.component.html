@@ -4,7 +4,8 @@
     <div *ngFor="let f of schema.fields" class="form-row">
       <label [for]="f.name">{{ f.label }} <span *ngIf="f.required">*</span></label>
 
-      <input *ngIf="f.type === 'text'" [id]="f.name" [formControlName]="f.name" type="text" />
+      <input *ngIf="f.type === 'text'" [id]="f.name" [formControlName]="f.name" type="text" [placeholder]="f.placeholder || ''"
+ />
 
       <textarea *ngIf="f.type === 'textarea'" [id]="f.name" [formControlName]="f.name" rows="4"></textarea>
 
@@ -19,7 +20,7 @@
         <option *ngFor="let o of f.options" [value]="o">{{ o }}</option>
       </select>
 
-      <input *ngIf="f.type === 'checkbox'" [id]="f.name" type="checkbox" [formControlName]="f.name" />
+      <input *ngIf="f.type === 'checkbox'" [id]="f.name" type="checkbox" [formControlName]="f.name"/>
 
       <div class="error" *ngIf="form.get(f.name)?.touched && form.get(f.name)?.invalid">
         {{ getErrorMessage(f) }}

@@ -10,6 +10,7 @@ export interface FieldSchema {
   required?: boolean;
   validation?: { pattern?: string; message?: string };
   options?: string[];
+  placeholder?: string;
 }
 
 export interface FormSchema {
@@ -54,7 +55,7 @@ export class DynamicFormComponent implements OnInit {
       if (f.type === 'checkbox') defaultValue = false;
       if (f.type === 'multiselect') defaultValue = [];
 
-      group[f.name] = new FormControl(defaultValue, validators);
+      group[f.name] = new FormControl('', validators);
     });
 
     this.form = new FormGroup(group);
